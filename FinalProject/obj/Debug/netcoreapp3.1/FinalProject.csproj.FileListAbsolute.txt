@@ -11,3 +11,5 @@ C:\Users\Thomas\OneDrive\Desktop\FinalProject\FinalProject\obj\Debug\netcoreapp3
 C:\Users\Thomas\OneDrive\Desktop\FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.dll
 C:\Users\Thomas\OneDrive\Desktop\FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.pdb
 C:\Users\Thomas\OneDrive\Desktop\FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.genruntimeconfig.cache
+C:\Users\Thomas\FinalProject\ECE264_FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.dll
+C:\Users\Thomas\FinalProject\ECE264_FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.pdb

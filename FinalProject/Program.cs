@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace FinalProject
 {
@@ -6,7 +7,15 @@ namespace FinalProject
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            getData(@"..\..\..\rooms.txt");
+        }
+
+        static void getData(string filename)
+        {
+            using (StreamReader fs = new StreamReader(filename))
+            {
+                Console.WriteLine(fs.ReadLine());
+            }
         }
     }
 }
