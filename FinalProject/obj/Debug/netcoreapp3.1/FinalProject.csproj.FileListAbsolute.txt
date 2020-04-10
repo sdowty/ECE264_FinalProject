@@ -13,3 +13,14 @@ C:\Users\Thomas\OneDrive\Desktop\FinalProject\FinalProject\obj\Debug\netcoreapp3
 C:\Users\Thomas\OneDrive\Desktop\FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.genruntimeconfig.cache
 C:\Users\Thomas\FinalProject\ECE264_FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.dll
 C:\Users\Thomas\FinalProject\ECE264_FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.pdb
+C:\Users\spenc\Desktop\Sophomore 2nd Semester\ECE 264\FinalProject\ECE264_FinalProject\FinalProject\bin\Debug\netcoreapp3.1\FinalProject.exe
+C:\Users\spenc\Desktop\Sophomore 2nd Semester\ECE 264\FinalProject\ECE264_FinalProject\FinalProject\bin\Debug\netcoreapp3.1\FinalProject.deps.json
+C:\Users\spenc\Desktop\Sophomore 2nd Semester\ECE 264\FinalProject\ECE264_FinalProject\FinalProject\bin\Debug\netcoreapp3.1\FinalProject.runtimeconfig.json
+C:\Users\spenc\Desktop\Sophomore 2nd Semester\ECE 264\FinalProject\ECE264_FinalProject\FinalProject\bin\Debug\netcoreapp3.1\FinalProject.runtimeconfig.dev.json
+C:\Users\spenc\Desktop\Sophomore 2nd Semester\ECE 264\FinalProject\ECE264_FinalProject\FinalProject\bin\Debug\netcoreapp3.1\FinalProject.dll
+C:\Users\spenc\Desktop\Sophomore 2nd Semester\ECE 264\FinalProject\ECE264_FinalProject\FinalProject\bin\Debug\netcoreapp3.1\FinalProject.pdb
+C:\Users\spenc\Desktop\Sophomore 2nd Semester\ECE 264\FinalProject\ECE264_FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.csprojAssemblyReference.cache
+C:\Users\spenc\Desktop\Sophomore 2nd Semester\ECE 264\FinalProject\ECE264_FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.AssemblyInfoInputs.cache
+C:\Users\spenc\Desktop\Sophomore 2nd Semester\ECE 264\FinalProject\ECE264_FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.AssemblyInfo.cs
+C:\Users\spenc\Desktop\Sophomore 2nd Semester\ECE 264\FinalProject\ECE264_FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.dll
+C:\Users\spenc\Desktop\Sophomore 2nd Semester\ECE 264\FinalProject\ECE264_FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.pdb
