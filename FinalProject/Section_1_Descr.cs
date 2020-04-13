@@ -8,11 +8,11 @@ namespace FinalProject
     public class AdventureRoom
     {
         private string _Description;
-        private string _ShortDescription;
 
         public AdventureRoom(string d)
         {
             Description = d;
+            Exits = new List<AdventureExit>();
         }
 
         public AdventureRoom() : this("")
@@ -30,27 +30,17 @@ namespace FinalProject
             set;
         }
 
-        public int GetDescription(StreamReader sr)
-        {
-            string tmp = sr.ReadLine();
-            string[] q = tmp.Split('\t');
-            int roomNumber = int.Parse(q[0]);
-
-            if(roomNumber < 0)
-                return roomNumber;
-
-            if (Description.Length == 0)
-                Description = q[1];
-            else
-                Description += " " + q[1];
-
-            return roomNumber;
-        }
+        public List<AdventureExit> Exits { get; set; }
 
         public void Print()
         {
             Console.WriteLine("Short: {0}", ShortDescription);
             Console.WriteLine("Long: {0}", Description);
+            Console.WriteLine("Exits:");
+            foreach(AdventureExit e in this.Exits)
+            {
+                Console.WriteLine(e);
+            }
         }
 
     }

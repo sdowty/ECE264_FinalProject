@@ -7,16 +7,44 @@ namespace FinalProject
 {
     class Program
     {
-        static List<AdventureRoom> myRooms;
+        static Dictionary<int,AdventureRoom> myRooms;
         static List<AdventureVocab> myVocab;
+        static Dictionary<int,AdventureItem> myItems;
 
         static void Main(string[] args)
         {
-            myRooms = new List<AdventureRoom>(140);
-            myVocab = new List<AdventureVocab>();
+            myRooms = new Dictionary<int, AdventureRoom>(140);
+            myVocab = new List<AdventureVocab>();  //keys are not unique
+            myItems = new Dictionary<int, AdventureItem>();
             getData(@"..\..\..\rooms.txt");
 
-            //testSection4();
+            AdventureRoom currentRoom = myRooms[1];
+            string command;
+            while(true)
+            {
+                currentRoom.Print();
+                command = Console.ReadLine();
+                foreach (AdventureExit e in currentRoom.Exits)
+                {
+                    if (e.Vocab.Contains(Tokenize(command)))
+                    {
+                        currentRoom = myRooms[e.Destination];
+                        break;
+                    }
+                }
+            }
+        }
+
+        static public int Tokenize(string s)
+        {
+            foreach (AdventureVocab v in myVocab)
+            {
+                if (string.Compare(v.Word, 0, s.ToUpper(), 0, 5) == 0)
+                {
+                    return v.Index;
+                }
+            }
+            return -1;
         }
 
         static void testSection4()
@@ -68,7 +96,7 @@ namespace FinalProject
         {
             string tmp;
             fs.ReadLine(); //section 1
-            myRooms.Add(new AdventureRoom());
+            //myRooms.Add(new AdventureRoom());
             //Console.WriteLine(fs.ReadLine());
             while (true)
             {
@@ -79,14 +107,10 @@ namespace FinalProject
                 int roomNumber = int.Parse(q[0]);
 
                 if (roomNumber < 0)
-                {
                     break;
-                }
+                if (!myRooms.ContainsKey(roomNumber))
+                    myRooms[roomNumber] = new AdventureRoom();
 
-                if (myRooms.Count < roomNumber + 1)
-                {
-                    myRooms.Add(new AdventureRoom());
-                }
                 if (myRooms[roomNumber].Description.Length == 0)
                     myRooms[roomNumber].Description = q[1];
                 else
@@ -117,13 +141,18 @@ namespace FinalProject
             fs.ReadLine();
             while (true)
             {
-                tmp = fs.ReadLine();
+                tmp = fs.ReadLine();    // one exit
                 string[] q = tmp.Split('\t');
                 int roomNumber = int.Parse(q[0]);
-
                 if (roomNumber < 0)
                     break;
-                // skip it
+                int destination = int.Parse(q[1]);
+                AdventureExit x = new AdventureExit(roomNumber,destination);
+                myRooms[x.Source].Exits.Add(x);
+                for (int i=2; i < q.Length; i++)
+                {
+                    x.AddVocab(int.Parse(q[i]));
+                }
             }
         }
 
@@ -147,7 +176,7 @@ namespace FinalProject
 
         static void GetSection5(StreamReader fs)
         {
-            AdventureItem item;
+            AdventureItem item = null;
             string tmp;
             int itemNumber;
 
@@ -159,7 +188,9 @@ namespace FinalProject
 
             while (itemNumber > 0)
             {
-                
+                if (item != null)
+                    myItems[item.Index] = item;
+
                 item = new AdventureItem();
                 itemNumber = int.Parse(q[0]);
                 item.Index = itemNumber;
@@ -185,8 +216,8 @@ namespace FinalProject
 
                     tmp = fs.ReadLine();
                     q = tmp.Split('\t');
-                    int descNumber = int.Parse(q[0]);
-                    int t = descNumber % 100;
+                    descNumber = int.Parse(q[0]);
+                    t = descNumber % 100;
                 }
 
                 itemNumber = descNumber;
