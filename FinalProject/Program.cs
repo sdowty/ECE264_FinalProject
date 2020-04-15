@@ -18,11 +18,14 @@ namespace FinalProject
             myItems = new Dictionary<int, AdventureItem>();
             getData(@"..\..\..\rooms.txt");
 
+            
+
             AdventureRoom currentRoom = myRooms[1];
             string command;
             while(true)
             {
-                currentRoom.Print();
+                Console.WriteLine(currentRoom);
+                Console.Write(">");
                 command = Console.ReadLine();
                 foreach (AdventureExit e in currentRoom.Exits)
                 {
@@ -225,6 +228,68 @@ namespace FinalProject
             }
         }
 
+        static void GetSection6(StreamReader fs)
+        {
+            string tmp;
+            fs.ReadLine();
+            while (true)
+            {
+                tmp = fs.ReadLine();    // one exit
+                string[] q = tmp.Split('\t');
+                int roomNumber = int.Parse(q[0]);
+                if (roomNumber < 0)
+                    break;
+                //skip
+            }
+        }
+
+        static void GetSection7(StreamReader fs)
+        {
+            string tmp;     // section 7
+            fs.ReadLine();
+            while (true)
+            {
+                tmp = fs.ReadLine();    // one exit
+
+                string[] q = tmp.Split('\t');
+                int itemNumber = int.Parse(q[0]);
+                if (itemNumber < 0)
+                    break;
+
+                if (!myItems.ContainsKey(itemNumber))
+                {
+                    continue;
+                }
+
+                if (q.Length == 2)
+                {
+                    int room = int.Parse(q[1]);
+
+                    if (room != 0)
+                    myRooms[room].AddItem(myItems[itemNumber]);
+
+                }
+                else if (q.Length == 3)
+                {
+                    int room1 = int.Parse(q[1]);
+                    int room2 = int.Parse(q[2]);
+                    myItems[itemNumber].ImmMovable = true;
+
+                    if (room1!= 0)
+                        myRooms[room1].AddItem(myItems[itemNumber]);
+
+                    if (room2 != -1 && room2 != 0) 
+                    {
+                        myRooms[room2].AddItem(myItems[itemNumber]);
+                    }
+                   
+                }
+                //skip
+            }
+        }
+
+
+
         static void getData(string filename)
         {
             string tmp;
@@ -235,6 +300,8 @@ namespace FinalProject
                 GetSection3(fs);
                 GetSection4(fs);
                 GetSection5(fs);
+                GetSection6(fs);
+                GetSection7(fs);
 
                 Console.WriteLine(fs.ReadLine());
             }

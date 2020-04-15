@@ -5,11 +5,12 @@ using System.IO;
 
 namespace FinalProject
 {
-    public class AdventureRoom
+    public class AdventureRoom :AdventureContainer
+
     {
         private string _Description;
 
-        public AdventureRoom(string d)
+        public AdventureRoom(string d) :base()
         {
             Description = d;
             Exits = new List<AdventureExit>();
@@ -32,6 +33,11 @@ namespace FinalProject
 
         public List<AdventureExit> Exits { get; set; }
 
+        public override string ToString()
+        {
+            return this.Description;
+        }
+
         public void Print()
         {
             Console.WriteLine("Short: {0}", ShortDescription);
@@ -41,7 +47,12 @@ namespace FinalProject
             {
                 Console.WriteLine(e);
             }
+            foreach (AdventureItem e in this.MyItems)
+            {
+                Console.WriteLine(e);
+            }
         }
+
 
     }
 }

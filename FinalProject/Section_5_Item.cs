@@ -16,6 +16,7 @@ namespace FinalProject
         public string ShortDescription { get; set; }
         public List<string> StateDescriptions { get; set; }
         public int State { get; set; }
+        public bool ImmMovable;
 
         public override string ToString()
         {

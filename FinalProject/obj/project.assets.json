@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\spenc\\.nuget\\packages\\": {}
+    "C:\\Users\\Thomas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\spenc\\Desktop\\Sophomore 2nd Semester\\ECE 264\\FinalProject\\ECE264_FinalProject\\FinalProject\\FinalProject.csproj",
+      "projectUniqueName": "C:\\Users\\Thomas\\FinalProject\\FP264\\ECE264_FinalProject\\FinalProject\\FinalProject.csproj",
       "projectName": "FinalProject",
-      "projectPath": "C:\\Users\\spenc\\Desktop\\Sophomore 2nd Semester\\ECE 264\\FinalProject\\ECE264_FinalProject\\FinalProject\\FinalProject.csproj",
-      "packagesPath": "C:\\Users\\spenc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\spenc\\Desktop\\Sophomore 2nd Semester\\ECE 264\\FinalProject\\ECE264_FinalProject\\FinalProject\\obj\\",
+      "projectPath": "C:\\Users\\Thomas\\FinalProject\\FP264\\ECE264_FinalProject\\FinalProject\\FinalProject.csproj",
+      "packagesPath": "C:\\Users\\Thomas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Thomas\\FinalProject\\FP264\\ECE264_FinalProject\\FinalProject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\spenc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Thomas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -58,7 +58,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
