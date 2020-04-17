@@ -35,7 +35,15 @@ namespace FinalProject
 
         public override string ToString()
         {
-            return this.Description;
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("{0}\n\n", Description);
+
+            foreach (AdventureItem i in this.MyItems)
+            {
+                sb.AppendFormat("{0}\n", i);
+            }
+
+            return sb.ToString();
         }
 
         public void Print()

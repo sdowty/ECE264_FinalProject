@@ -207,7 +207,7 @@ namespace FinalProject
 
                 while (t == 0)  //description
                 {
-                    t = itemNumber / 100;
+                    t = descNumber / 100;
                     if (item.StateDescriptions.Count <= t)
                     {
                         item.StateDescriptions.Add(q[1]);

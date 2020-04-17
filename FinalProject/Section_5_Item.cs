@@ -18,7 +18,7 @@ namespace FinalProject
         public int State { get; set; }
         public bool ImmMovable;
 
-        public override string ToString()
+        public string DebugString()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(string.Format("Index:{0}\n", Index));
@@ -31,5 +31,9 @@ namespace FinalProject
 
             return sb.ToString();
         }
-    }
+        public override string ToString()
+        {
+            return StateDescriptions[State];
+        }
+        }
 }
