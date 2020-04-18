@@ -27,6 +27,12 @@ namespace FinalProject
                 Console.WriteLine(currentRoom);
                 Console.Write(">");
                 command = Console.ReadLine();
+                int myToken = Tokenize(command);
+                if (myToken == -1)
+                {
+                    Console.WriteLine("I DON'T KNOW THAT WORD.");
+                    continue;
+                }
                 foreach (AdventureExit e in currentRoom.Exits)
                 {
                     if (e.Vocab.Contains(Tokenize(command)))
@@ -121,7 +127,6 @@ namespace FinalProject
                 // done with room descriptions
             }
         }
-
         static void GetSection2(StreamReader fs)
         {
             string tmp;
@@ -137,7 +142,6 @@ namespace FinalProject
                 myRooms[roomNumber].ShortDescription = q[1];
             }
         }
-
         static void GetSection3(StreamReader fs)
         {
             string tmp;
@@ -158,7 +162,6 @@ namespace FinalProject
                 }
             }
         }
-
         static void GetSection4(StreamReader fs)
         {
             string tmp; //section4
@@ -176,7 +179,6 @@ namespace FinalProject
                 myVocab.Add(new AdventureVocab(vocabNumber, q[1]));
             }
         }
-
         static void GetSection5(StreamReader fs)
         {
             AdventureItem item = null;
@@ -227,7 +229,6 @@ namespace FinalProject
                 // q and itemNumber must contain next data
             }
         }
-
         static void GetSection6(StreamReader fs)
         {
             string tmp;
@@ -242,7 +243,6 @@ namespace FinalProject
                 //skip
             }
         }
-
         static void GetSection7(StreamReader fs)
         {
             string tmp;     // section 7
@@ -287,8 +287,6 @@ namespace FinalProject
                 //skip
             }
         }
-
-
 
         static void getData(string filename)
         {
