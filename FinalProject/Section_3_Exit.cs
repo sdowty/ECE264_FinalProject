@@ -10,6 +10,9 @@ namespace FinalProject
         public int Destination { get; set; }
         public List<int> Vocab { get; set; }
 
+        public int Conditional { get { return Destination / 1000; } }
+        public int ComputedDest { get { return Destination % 1000; } }
+
         public AdventureExit(int Source, int Dest)
         {
             this.Source = Source;

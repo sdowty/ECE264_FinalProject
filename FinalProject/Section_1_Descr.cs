@@ -5,15 +5,32 @@ using System.IO;
 
 namespace FinalProject
 {
+    [Flags]
+    public enum RoomFlags
+    {
+        None = 0,
+        light = 1,
+        OilWater = 2,
+        liquid = 4,
+        pirateFollow = 8,
+        tryCave = 16,
+        tryBird = 32,
+        trySnake = 64,
+        lostMaze = 128,
+        tryDark = 256,
+        wittsEnd = 512,
+    }
     public class AdventureRoom :AdventureContainer
 
     {
         private string _Description;
+        public RoomFlags Flags { get; set; }
 
         public AdventureRoom(string d) :base()
         {
             Description = d;
             Exits = new List<AdventureExit>();
+            Flags = RoomFlags.None;
         }
 
         public AdventureRoom() : this("")

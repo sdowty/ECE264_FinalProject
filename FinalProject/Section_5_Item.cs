@@ -11,12 +11,14 @@ namespace FinalProject
         {
             StateDescriptions = new List<string>();
             ShortDescription = "";
+            State = 0;
         }
+
         public int Index { get; set; }
         public string ShortDescription { get; set; }
         public List<string> StateDescriptions { get; set; }
         public int State { get; set; }
-        public bool ImmMovable;
+        public bool Immovable;
 
         public string DebugString()
         {

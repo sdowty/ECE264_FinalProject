@@ -6,7 +6,7 @@ namespace FinalProject
 {
     public class AdventureContainer
     {
-        protected List<AdventureItem> MyItems { get; set; }
+        public List<AdventureItem> MyItems { get; set; }
 
         public AdventureContainer()
         {
@@ -18,7 +18,7 @@ namespace FinalProject
             MyItems.Add(i);
         }
 
-        bool RemoveItem (int id)
+        public bool RemoveItem (int id)
         {
             foreach (AdventureItem x in MyItems)
             {

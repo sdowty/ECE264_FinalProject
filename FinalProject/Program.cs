@@ -10,34 +10,61 @@ namespace FinalProject
         static Dictionary<int,AdventureRoom> myRooms;
         static List<AdventureVocab> myVocab;
         static Dictionary<int,AdventureItem> myItems;
+        static Dictionary<int, string> myMessages;
+        static AdventureActor player;
 
         static void Main(string[] args)
         {
             myRooms = new Dictionary<int, AdventureRoom>(140);
             myVocab = new List<AdventureVocab>();  //keys are not unique
             myItems = new Dictionary<int, AdventureItem>();
+            myMessages = new Dictionary<int, string>();
+            player = new AdventureActor();
             getData(@"..\..\..\rooms.txt");
 
-            
+            myRooms[100].Print();
 
-            AdventureRoom currentRoom = myRooms[1];
+            player.CurrentRoom = myRooms[1];
             string command;
             while(true)
             {
-                Console.WriteLine(currentRoom);
+                Console.WriteLine(player.CurrentRoom);
                 Console.Write(">");
                 command = Console.ReadLine();
-                int myToken = Tokenize(command);
+                string[] cmdlist = command.Split(' ');
+
+                if (command == "inven")
+                {
+                    foreach(AdventureItem i in player.MyItems)
+                    {
+                        Console.WriteLine(i.ShortDescription);
+                    }
+                }
+
+                int myToken = Tokenize(cmdlist[0]);
+                int myToken2 = 0;
+                if (cmdlist.Length == 2)
+                    myToken2 = Tokenize(cmdlist[1]);
+
                 if (myToken == -1)
                 {
                     Console.WriteLine("I DON'T KNOW THAT WORD.");
                     continue;
                 }
-                foreach (AdventureExit e in currentRoom.Exits)
+                else if(myToken > 2000 && myToken < 3000)
                 {
-                    if (e.Vocab.Contains(Tokenize(command)))
+                    if(myToken == 2001 && myToken2 > 1000 && myToken2 < 2000)
                     {
-                        currentRoom = myRooms[e.Destination];
+                        player.AddItem(myItems[myToken2 % 1000]);
+                        Console.WriteLine("got the thing");
+                        player.CurrentRoom.RemoveItem(myToken2 % 1000);
+                    }
+                }
+                foreach (AdventureExit e in player.CurrentRoom.Exits)
+                {
+                    if (e.Vocab.Contains(myToken))
+                    {
+                        player.CurrentRoom = myRooms[e.Destination];
                         break;
                     }
                 }
@@ -240,7 +267,11 @@ namespace FinalProject
                 int roomNumber = int.Parse(q[0]);
                 if (roomNumber < 0)
                     break;
-                //skip
+
+                if (myMessages.ContainsKey(roomNumber))
+                    myMessages[roomNumber] += " " + q[1];
+                else
+                    myMessages[roomNumber] = q[1];
             }
         }
         static void GetSection7(StreamReader fs)
@@ -266,16 +297,16 @@ namespace FinalProject
                     int room = int.Parse(q[1]);
 
                     if (room != 0)
-                    myRooms[room].AddItem(myItems[itemNumber]);
-
+                        myRooms[room].AddItem(myItems[itemNumber]);
                 }
+
                 else if (q.Length == 3)
                 {
                     int room1 = int.Parse(q[1]);
                     int room2 = int.Parse(q[2]);
-                    myItems[itemNumber].ImmMovable = true;
+                    myItems[itemNumber].Immovable = true;
 
-                    if (room1!= 0)
+                    if (room1 != 0)
                         myRooms[room1].AddItem(myItems[itemNumber]);
 
                     if (room2 != -1 && room2 != 0) 
@@ -284,6 +315,24 @@ namespace FinalProject
                     }
                    
                 }
+                
+
+            }
+        }
+
+
+        static void SkipSection(StreamReader fs)
+        {
+            fs.ReadLine();
+            string tmp;
+            while(true)
+            {
+                tmp = fs.ReadLine();
+
+                string[] q = tmp.Split('\t');
+                int itemNumber = int.Parse(q[0]);
+                if (itemNumber < 0)
+                    break;
                 //skip
             }
         }
@@ -300,6 +349,7 @@ namespace FinalProject
                 GetSection5(fs);
                 GetSection6(fs);
                 GetSection7(fs);
+                SkipSection(fs);
 
                 Console.WriteLine(fs.ReadLine());
             }
