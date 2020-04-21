@@ -27,7 +27,7 @@ namespace FinalProject
             return false;
         }
 
-        bool HasItem (int id)
+        public bool HasItem (int id)
         {
             foreach (AdventureItem x in MyItems)
             {

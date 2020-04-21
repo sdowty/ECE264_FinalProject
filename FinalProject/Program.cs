@@ -55,9 +55,21 @@ namespace FinalProject
                 {
                     if(myToken == 2001 && myToken2 > 1000 && myToken2 < 2000)
                     {
-                        player.AddItem(myItems[myToken2 % 1000]);
-                        Console.WriteLine("got the thing");
-                        player.CurrentRoom.RemoveItem(myToken2 % 1000);
+                        int itemNumber = myToken2 % 1000;
+                        AdventureItem item = myItems[itemNumber];
+                        
+                        if( player.CurrentRoom.HasItem(itemNumber))
+                        {
+                            player.CurrentRoom.RemoveItem(itemNumber);
+                            player.AddItem(item);
+                            Console.WriteLine("got the thing");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Can't Find {0}", cmdlist[1]);
+                        }
+                        
+                       
                     }
                 }
                 foreach (AdventureExit e in player.CurrentRoom.Exits)
@@ -319,8 +331,26 @@ namespace FinalProject
 
             }
         }
+        static void GetSection9(StreamReader fs)
 
+        {
+            fs.ReadLine(); //Section 9
+            string tmp;
 
+            tmp = fs.ReadLine(); //one item
+
+            string[] q = tmp.Split('\t');
+            int bitNumber = int.Parse(q[0]);
+
+            while (bitNumber >= 0)
+            {
+                for (int i = 1; i < q.Length; i++)
+                {
+                    int t = int.Parse(q[i]);
+                    myRooms[t].Flags |= (RoomFlags)(1 << bitNumber);
+                }
+            }
+        }
         static void SkipSection(StreamReader fs)
         {
             fs.ReadLine();
@@ -350,6 +380,7 @@ namespace FinalProject
                 GetSection6(fs);
                 GetSection7(fs);
                 SkipSection(fs);
+                //GetSection9(fs);
 
                 Console.WriteLine(fs.ReadLine());
             }
