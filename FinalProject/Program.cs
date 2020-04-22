@@ -77,15 +77,25 @@ namespace FinalProject
                         if (player.HasItem(itemNumber))
                         {
                             player.RemoveItem(itemNumber);
-                            player.AddItem(item);
+                            player.CurrentRoom.AddItem(item);
                             Console.WriteLine("dropped the thing");
                         }
                         else
                         {
                             Console.WriteLine("Can't Find {0}", cmdlist[1]);
+                            
                         }
                     }
-                
+                    else if (myToken == 2003)
+                    {
+                        for (int i = 1; i <+ cmdlist.Length; i++)
+                        {
+                            Console.Write("{0} ", cmdlist[i].ToUpper());
+                        }
+                        Console.WriteLine("\n");
+                           
+                    }
+
 
 
                 }
