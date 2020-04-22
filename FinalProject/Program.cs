@@ -7,9 +7,9 @@ namespace FinalProject
 {
     class Program
     {
-        static Dictionary<int,AdventureRoom> myRooms;
+        static Dictionary<int, AdventureRoom> myRooms;
         static List<AdventureVocab> myVocab;
-        static Dictionary<int,AdventureItem> myItems;
+        static Dictionary<int, AdventureItem> myItems;
         static Dictionary<int, string> myMessages;
         static AdventureActor player;
 
@@ -26,7 +26,7 @@ namespace FinalProject
 
             player.CurrentRoom = myRooms[1];
             string command;
-            while(true)
+            while (true)
             {
                 Console.WriteLine(player.CurrentRoom);
                 Console.Write(">");
@@ -35,7 +35,7 @@ namespace FinalProject
 
                 if (command == "inven")
                 {
-                    foreach(AdventureItem i in player.MyItems)
+                    foreach (AdventureItem i in player.MyItems)
                     {
                         Console.WriteLine(i.ShortDescription);
                     }
@@ -51,14 +51,14 @@ namespace FinalProject
                     Console.WriteLine("I DON'T KNOW THAT WORD.");
                     continue;
                 }
-                else if(myToken > 2000 && myToken < 3000)
+                else if (myToken > 2000 && myToken < 3000)
                 {
-                    if(myToken == 2001 && myToken2 > 1000 && myToken2 < 2000)
+                    if (myToken == 2001 && myToken2 > 1000 && myToken2 < 2000)
                     {
                         int itemNumber = myToken2 % 1000;
                         AdventureItem item = myItems[itemNumber];
-                        
-                        if( player.CurrentRoom.HasItem(itemNumber))
+
+                        if (player.CurrentRoom.HasItem(itemNumber))
                         {
                             player.CurrentRoom.RemoveItem(itemNumber);
                             player.AddItem(item);
@@ -68,20 +68,39 @@ namespace FinalProject
                         {
                             Console.WriteLine("Can't Find {0}", cmdlist[1]);
                         }
-                        
-                       
                     }
-                }
-                foreach (AdventureExit e in player.CurrentRoom.Exits)
-                {
-                    if (e.Vocab.Contains(myToken))
+                    else if( myToken == 2002 && myToken2 > 1000 && myToken2 < 2000)
                     {
-                        player.CurrentRoom = myRooms[e.Destination];
-                        break;
+                        int itemNumber = myToken2 % 1000;
+                        AdventureItem item = myItems[itemNumber];
+
+                        if (player.HasItem(itemNumber))
+                        {
+                            player.RemoveItem(itemNumber);
+                            player.AddItem(item);
+                            Console.WriteLine("dropped the thing");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Can't Find {0}", cmdlist[1]);
+                        }
                     }
+                
+
+
+                }
+            
+            foreach (AdventureExit e in player.CurrentRoom.Exits)
+            {
+                if (e.Vocab.Contains(myToken))
+                {
+                    player.CurrentRoom = myRooms[e.Destination];
+                    break;
                 }
             }
         }
+    }
+
 
         static public int Tokenize(string s)
         {
