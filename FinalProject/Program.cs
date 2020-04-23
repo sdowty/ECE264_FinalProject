@@ -69,7 +69,7 @@ namespace FinalProject
                             Console.WriteLine("Can't Find {0}", cmdlist[1]);
                         }
                     }
-                    else if( myToken == 2002 && myToken2 > 1000 && myToken2 < 2000)
+                    else if (myToken == 2002 && myToken2 > 1000 && myToken2 < 2000)
                     {
                         int itemNumber = myToken2 % 1000;
                         AdventureItem item = myItems[itemNumber];
@@ -83,33 +83,69 @@ namespace FinalProject
                         else
                         {
                             Console.WriteLine("Can't Find {0}", cmdlist[1]);
-                            
+
                         }
                     }
                     else if (myToken == 2003)
                     {
-                        for (int i = 1; i <+ cmdlist.Length; i++)
+                        for (int i = 1; i < +cmdlist.Length; i++)
                         {
                             Console.Write("{0} ", cmdlist[i].ToUpper());
                         }
                         Console.WriteLine("\n");
-                           
+
+                    }
+                    else if (myToken == 2007)//light
+                    {
+                        if (myToken2 == 1002)// the lamp
+                        {
+                            if (player.HasItem(2) || player.CurrentRoom.HasItem(2))
+                            {
+                                myItems[2].State = 1;
+                                Console.WriteLine(myMessages[39]);
+                            }
+                        }
+                    }
+                    else if (myToken == 2008)// extenguyish
+                    {
+                        if (myToken2 == 1002)// the lamp
+                        {
+                            if (player.HasItem(2) || player.CurrentRoom.HasItem(2))
+                            {
+                                myItems[2].State = 0;
+                                Console.WriteLine(myMessages[40]);
+                                if (!player.CurrentRoom.Flags.HasFlag(RoomFlags.light))
+                                {
+                                    Console.WriteLine(myMessages[16]);
+                                }
+
+                            }
+                        }
                     }
 
 
 
+
+
+
                 }
-            
-            foreach (AdventureExit e in player.CurrentRoom.Exits)
-            {
-                if (e.Vocab.Contains(myToken))
+
+
+
+
+
+
+                foreach (AdventureExit e in player.CurrentRoom.Exits)
                 {
-                    player.CurrentRoom = myRooms[e.Destination];
-                    break;
+                    if (e.Vocab.Contains(myToken))
+                    {
+                        player.CurrentRoom = myRooms[e.Destination];
+                        break;
+                    }
                 }
             }
         }
-    }
+    
 
 
         static public int Tokenize(string s)
@@ -378,6 +414,9 @@ namespace FinalProject
                     int t = int.Parse(q[i]);
                     myRooms[t].Flags |= (RoomFlags)(1 << bitNumber);
                 }
+                tmp = fs.ReadLine();
+                q = tmp.Split('\t');
+                bitNumber = int.Parse(q[0]);
             }
         }
         static void SkipSection(StreamReader fs)

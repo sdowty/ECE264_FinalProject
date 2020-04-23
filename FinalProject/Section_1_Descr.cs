@@ -76,6 +76,8 @@ namespace FinalProject
             {
                 Console.WriteLine(e);
             }
+            Console.Write("\nFlags:");
+            Console.WriteLine(this.Flags.ToString());
         }
 
 
