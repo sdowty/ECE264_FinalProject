@@ -28,7 +28,13 @@ namespace FinalProject
             string command;
             while (true)
             {
-                Console.WriteLine(player.CurrentRoom);
+                if (player.CurrentRoom.Flags.HasFlag(RoomFlags.light) 
+                    || ((player.HasItem(2) || player.CurrentRoom.HasItem(2)) 
+                    && myItems[2].State == 1))
+                {
+                    Console.WriteLine(player.CurrentRoom);
+                }
+                
                 Console.Write(">");
                 command = Console.ReadLine();
                 string[] cmdlist = command.Split(' ');
@@ -106,7 +112,7 @@ namespace FinalProject
                             }
                         }
                     }
-                    else if (myToken == 2008)// extenguyish
+                    else if (myToken == 2008)// extinguish
                     {
                         if (myToken2 == 1002)// the lamp
                         {
@@ -129,18 +135,15 @@ namespace FinalProject
 
 
                 }
-
-
-
-
-
-
-                foreach (AdventureExit e in player.CurrentRoom.Exits)
+                else if (myToken < 1000)
                 {
-                    if (e.Vocab.Contains(myToken))
+                    foreach (AdventureExit e in player.CurrentRoom.Exits)
                     {
-                        player.CurrentRoom = myRooms[e.Destination];
-                        break;
+                        if (e.Vocab.Contains(myToken))
+                        {
+                            player.CurrentRoom = myRooms[e.Destination];
+                            break;
+                        }
                     }
                 }
             }
@@ -448,7 +451,7 @@ namespace FinalProject
                 GetSection6(fs);
                 GetSection7(fs);
                 SkipSection(fs);
-                //GetSection9(fs);
+                GetSection9(fs);
 
                 Console.WriteLine(fs.ReadLine());
             }
