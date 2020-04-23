@@ -139,9 +139,21 @@ namespace FinalProject
                 {
                     foreach (AdventureExit e in player.CurrentRoom.Exits)
                     {
+                        
                         if (e.Vocab.Contains(myToken))
                         {
-                            player.CurrentRoom = myRooms[e.Destination];
+                            if (e.Conditional == 0 || e.Conditional == 100)
+                                player.CurrentRoom = myRooms[e.Destination];
+                            else if (e.Conditional >= 300)
+                            {
+                                int itemNumber = e.Conditional % 100;
+                                int forbiddenState = (e.Conditional / 100) - 3;
+                                if (myItems[itemNumber].State != forbiddenState)
+                                    player.CurrentRoom = myRooms[e.ComputedDest];
+                            }
+                            else
+                                throw new NotImplementedException("cant handle conditional movements");
+
                             break;
                         }
                     }
