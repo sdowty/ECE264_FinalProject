@@ -22,7 +22,8 @@ namespace FinalProject
             player = new AdventureActor();
             getData(@"..\..\..\rooms.txt");
 
-            myRooms[100].Print();
+            //myRooms[100].Print();
+            Console.WriteLine(myMessages[1]);
 
             player.CurrentRoom = myRooms[1];
             string command;
@@ -39,18 +40,18 @@ namespace FinalProject
                 command = Console.ReadLine();
                 string[] cmdlist = command.Split(' ');
 
-                if (command == "inven")
+                int myToken = Tokenize(cmdlist[0]);
+                int myToken2 = 0;
+                if (cmdlist.Length == 2)
+                    myToken2 = Tokenize(cmdlist[1]);
+
+                if (myToken == 2020)
                 {
                     foreach (AdventureItem i in player.MyItems)
                     {
                         Console.WriteLine(i.ShortDescription);
                     }
                 }
-
-                int myToken = Tokenize(cmdlist[0]);
-                int myToken2 = 0;
-                if (cmdlist.Length == 2)
-                    myToken2 = Tokenize(cmdlist[1]);
 
                 if (myToken == -1)
                 {
@@ -63,16 +64,37 @@ namespace FinalProject
                     {
                         int itemNumber = myToken2 % 1000;
                         AdventureItem item = myItems[itemNumber];
+                        
+                        if (player.CurrentRoom.HasItem(8))
+                        {
+                            if (!player.HasItem(4))
+                            {
+                                Console.WriteLine(myMessages[18]);
+                            }
 
-                        if (player.CurrentRoom.HasItem(itemNumber))
+                            else if (player.HasItem(5) || player.HasItem(6)) 
+                            {
+                                Console.WriteLine(myMessages[19]);
+                            }
+
+                            else
+                            {
+                                player.CurrentRoom.RemoveItem(itemNumber);
+                                player.AddItem(item);
+                                Console.WriteLine("GOT {0}", cmdlist[1].ToUpper());
+                            }
+
+                        }
+
+                        else if (player.CurrentRoom.HasItem(itemNumber))
                         {
                             player.CurrentRoom.RemoveItem(itemNumber);
                             player.AddItem(item);
-                            Console.WriteLine("got the thing");
+                            Console.WriteLine("GOT {0}", cmdlist[1].ToUpper());
                         }
                         else
                         {
-                            Console.WriteLine("Can't Find {0}", cmdlist[1]);
+                            Console.WriteLine("CAN'T FIND {0}", cmdlist[1].ToUpper());
                         }
                     }
                     else if (myToken == 2002 && myToken2 > 1000 && myToken2 < 2000)
@@ -84,11 +106,11 @@ namespace FinalProject
                         {
                             player.RemoveItem(itemNumber);
                             player.CurrentRoom.AddItem(item);
-                            Console.WriteLine("dropped the thing");
+                            Console.WriteLine("DROPPED {0}", cmdlist[1].ToUpper());
                         }
                         else
                         {
-                            Console.WriteLine("Can't Find {0}", cmdlist[1]);
+                            Console.WriteLine("CAN'T FIND {0}", cmdlist[1].ToUpper());
 
                         }
                     }
@@ -101,6 +123,25 @@ namespace FinalProject
                         Console.WriteLine("\n");
 
                     }
+
+                    else if (myToken == 2004) //unlock
+                    {
+                        if (player.HasItem(1) && myItems[3].State == 0 && player.CurrentRoom.HasItem(3))
+                        {
+                            Console.WriteLine(myMessages[36]);
+                            myItems[3].State++;
+                        }
+                    }
+
+                    else if (myToken == 2006)
+                    {
+                        if (player.HasItem(1) && myItems[3].State == 1 && player.CurrentRoom.HasItem(3))
+                        {
+                            Console.WriteLine(myMessages[35]);
+                            myItems[3].State--;
+                        }
+                    }
+
                     else if (myToken == 2007)//light
                     {
                         if (myToken2 == 1002)// the lamp
@@ -128,11 +169,85 @@ namespace FinalProject
                             }
                         }
                     }
+                    
+                   /* else if (myToken == 2009)
+                    {
+                        if (myToken2 == 1005 || myToken2 == 1006)
+                        {
+                            if (player.HasItem(5) || player.CurrentRoom.HasItem(5))
+                            {
+                                Console.WriteLine(myMessages[12]);
+                            }
+                        }
+                    }*/
+                    else if (myToken == 2014)  //Eat
+                    {
+                        if (myToken2 == 1019) 
+                        {
+                            if (player.HasItem(19))
+                            {
+                                Console.WriteLine("MMMMMMMM YUMMY!!");
+                                player.RemoveItem(19);
+                            }
+
+                            else if (!player.HasItem(19))
+                            {
+                                Console.WriteLine("YOU HAVE NOTHING TO EAT!!");
+                            }
+
+                        }
+                        else if (myToken2 != 1019)
+                        {
+                            Console.WriteLine(myMessages[25]);
+                        }
+                    }
+                    else if( myToken == 2015) //Drink
+                    {
+                        if (myToken2 == 1020 || myToken2 == 1021)   //bottle or water
+                        {
+                            if (player.HasItem(20) && myItems[20].State == 0)
+                            {
+                                Console.WriteLine(myMessages[74]);
+                                myItems[20].State++;
+
+                            }
+                            else if (player.HasItem(20) && myItems[20].State == 1)
+                            {
+                                Console.WriteLine("THERE IS NOTHING IN THE BOTTLE TO DRINK!!!");
+                            }
+                            else
+                            {
+                                Console.WriteLine(myMessages[110]);
+                            }
+                        }
+                    }
+
+                    else if (myToken == 2018) //quit
+                    {
+                        
+                        Console.WriteLine(myMessages[143]);
+                        string ending = Console.ReadLine();
 
 
+                        if (ending.ToUpper() == "YES" || ending.ToUpper() == "Y")
+                        {
+                            Console.WriteLine("\nADVENTURING IS OBVIOUSLY NOT FOR YOU!\n");
+                            break;
+                        }
+                        else if (ending.ToUpper() == "NO" || ending.ToUpper() == "N")
+                        {
+                            Console.WriteLine("\n");
+                            continue;
+                        }
+                        else
+                        {
+                            Console.WriteLine(myMessages[12]);
+                            Console.WriteLine("\n");
+                        }
+                    }
 
-
-
+                    
+                       
 
                 }
                 else if (myToken < 1000)
