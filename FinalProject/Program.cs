@@ -57,11 +57,28 @@ namespace FinalProject
                 }
                 else if (myToken > 2000 && myToken < 3000)  // verbs
                 {
-                    if (myToken2 == -1) // word that isnt in vocab
+                    if (myToken == 2001 && cmdlist[1].ToUpper() == "ALL")   // special case - GET ALL
+                    {
+                        for (int i = 1; i <= 64; i++)
+                        {
+                            if (player.CurrentRoom.HasItem(i))
+                            {
+                                player.CurrentRoom.RemoveItem(i);
+                                player.AddItem(myItems[i]);
+                            }
+                        }
+                        Console.WriteLine("GOT {0}\n", cmdlist[1].ToUpper());
+                        foreach (AdventureItem i in player.MyItems)
+                        {
+                            Console.WriteLine(i.ShortDescription);
+                        }
+                        Console.WriteLine('\n');
+                    }
+                    else if (myToken2 == -1) // word that isnt in vocab
                     {
                         Console.WriteLine("CAN'T FIND {0}\n", cmdlist[1].ToUpper());
                     }
-                    if (myToken == 2001 && myToken2 > 1000 && myToken2 < 2000)  // get stuff
+                    else if (myToken == 2001 && myToken2 > 1000 && myToken2 < 2000)  // get stuff
                     {
                         int itemNumber = myToken2 % 1000;
                         AdventureItem item = myItems[itemNumber];
@@ -183,10 +200,14 @@ namespace FinalProject
                             }
                         }
                     }
-                    /*else if (myToken == 2011)   //walk
+                    else if (myToken == 2011)   //walk
                     {
-                        
-                    }*/
+                        int walkToken = Tokenize(cmdlist[1]);
+                        if (walkToken < 1000)
+                        {
+                            Movement(walkToken);
+                        }
+                    }
                     else if (myToken == 2014)  //Eat
                     {
                         if (myToken2 == 1019) 
@@ -299,29 +320,33 @@ namespace FinalProject
                 }
                 else if (myToken < 1000)
                 {
-                    foreach (AdventureExit e in player.CurrentRoom.Exits)
-                    {
-                        if (e.Vocab.Contains(myToken))
-                        {
-                            if (e.Conditional == 0 || e.Conditional == 100)
-                                player.CurrentRoom = myRooms[e.Destination];
-                            else if (e.Conditional >= 300)
-                            {
-                                int itemNumber = e.Conditional % 100;
-                                int forbiddenState = (e.Conditional / 100) - 3;
-                                if (myItems[itemNumber].State != forbiddenState)
-                                    player.CurrentRoom = myRooms[e.ComputedDest];
-                            }
-                            else
-                                throw new NotImplementedException("cant handle conditional movements");
-
-                            break;
-                        }
-                    }
+                    Movement(myToken);
                 }
             }
         }
 
+        static void Movement(int q)
+        {
+            foreach (AdventureExit e in player.CurrentRoom.Exits)
+            {
+                if (e.Vocab.Contains(q))
+                {
+                    if (e.Conditional == 0 || e.Conditional == 100)
+                        player.CurrentRoom = myRooms[e.Destination];
+                    else if (e.Conditional >= 300)
+                    {
+                        int itemNumber = e.Conditional % 100;
+                        int forbiddenState = (e.Conditional / 100) - 3;
+                        if (myItems[itemNumber].State != forbiddenState)
+                            player.CurrentRoom = myRooms[e.ComputedDest];
+                    }
+                    else
+                        throw new NotImplementedException("cant handle conditional movements");
+
+                    break;
+                }
+            }
+        }
         static public int Tokenize(string s)
         {
             foreach (AdventureVocab v in myVocab)
