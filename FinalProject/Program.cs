@@ -429,7 +429,7 @@ namespace FinalProject
             return -1;
         }
 
-        static void testSection4()
+        /*static void testSection4()
         {
             string input;
             int number;
@@ -473,7 +473,7 @@ namespace FinalProject
                 }
             }
         }
-
+        */
         #region GET SECTIONS
         static void GetSection1(StreamReader fs)
         {
