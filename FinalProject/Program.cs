@@ -384,6 +384,26 @@ namespace FinalProject
                         }
                     }
                     #endregion
+                   
+                    else if (myToken == 2012)   // FEED
+                    {
+                        if (myToken2 == 1011)
+                        {
+                            if (player.HasItem(8) && myItems[20].State == 0)
+                            {
+                                if (player.CurrentRoom.Flags.HasFlag(RoomFlags.trySnake))
+                                {
+                                    Console.WriteLine(myMessages[30] + "\n");
+                                    myItems[20].State++;
+                                }
+                                
+                                
+
+                            }
+                        }
+
+                    }
+                  
                 }
                 #endregion
                 #region MOVEMENT
