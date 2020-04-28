@@ -410,6 +410,40 @@ namespace FinalProject
                         if (myItems[itemNumber].State != forbiddenState)
                             player.CurrentRoom = myRooms[e.ComputedDest];
                     }
+
+                    else if(e.Conditional > 200 && e.Conditional <= 300)
+                    {
+                        if (player.HasItem(e.Conditional - 200) || player.CurrentRoom.HasItem(e.Conditional - 200))
+                        {
+                            player.CurrentRoom = myRooms[e.ComputedDest];
+                        }
+                        else
+                        {
+                            Console.WriteLine("You or your room doe not have the necessary items");
+                        }
+                    }
+                    
+                    else if (e.Conditional > 100 && e.Conditional <= 200)
+                    {
+                        int itemNumber = e.Conditional - 100;
+                        if (player.HasItem(itemNumber))
+                        {
+                            player.CurrentRoom = myRooms[e.ComputedDest+1];
+                        }
+                            
+                        else
+                        {
+                            Console.WriteLine("YOU DON'T HAVE THE NECESSARY ITEM");
+                        }
+                    }
+                    else if (e.Conditional > 300 && e.Conditional <= 400 )
+                    {
+                        if ((e.Conditional % 100) != 0)
+                        {
+                            player.CurrentRoom = myRooms[e.ComputedDest];
+                        }                    }
+                    
+                        
                     else
                         throw new NotImplementedException("cant handle conditional movements");
 
@@ -534,6 +568,8 @@ namespace FinalProject
                 {
                     x.AddVocab(int.Parse(q[i]));
                 }
+                
+                
             }
         }
         static void GetSection4(StreamReader fs)

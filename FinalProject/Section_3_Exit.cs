@@ -19,6 +19,7 @@ namespace FinalProject
             Destination = Dest;
             Vocab = new List<int>();
 
+
         }
         public void AddVocab(int v)
         {
