@@ -126,17 +126,24 @@ namespace FinalProject
                     {
                         int itemNumber = myToken2 % 1000;
                         AdventureItem item = myItems[itemNumber];
-
+                       
                         if (player.HasItem(itemNumber))
                         {
                             player.RemoveItem(itemNumber);
                             player.CurrentRoom.AddItem(item);
                             Console.WriteLine("DROPPED {0}\n", cmdlist[1].ToUpper());
                         }
+                        if (player.CurrentRoom.HasItem(8) && player.CurrentRoom.HasItem(11))
+                        {
+                            Console.WriteLine(myMessages[101]);
+                            player.CurrentRoom.RemoveItem(8);
+                            player.RemoveItem(8);
+                        }
                         else
                         {
                             Console.WriteLine("CAN'T FIND {0}\n", cmdlist[1].ToUpper());
                         }
+
                     }
                     #endregion
                     #region TALK
@@ -384,26 +391,37 @@ namespace FinalProject
                         }
                     }
                     #endregion
-                   
-                    else if (myToken == 2012)   // FEED
+                    #region THROW
+                    else if (myToken == 2017)
                     {
-                        if (myToken2 == 1011)
+                        if (myToken2 == 1008 && player.CurrentRoom.HasItem(11))
                         {
-                            if (player.HasItem(8) && myItems[20].State == 0)
-                            {
-                                if (player.CurrentRoom.Flags.HasFlag(RoomFlags.trySnake))
-                                {
-                                    Console.WriteLine(myMessages[30] + "\n");
-                                    myItems[20].State++;
-                                }
-                                
-                                
+                            player.CurrentRoom.RemoveItem(11); //remove snake from room
+                            player.RemoveItem(8); //remove bird from inven
+                            player.CurrentRoom.AddItem(myItems[8]); //add bird to room 
+                            Console.WriteLine(myMessages[30]); 
+                        }
+                        else
+                        {
+                            int itemNumber = myToken2 % 1000;
+                            AdventureItem item = myItems[itemNumber];
 
+                            if (player.HasItem(itemNumber))
+                            {
+                                player.RemoveItem(itemNumber);
+                                player.CurrentRoom.AddItem(item);
+                                Console.WriteLine("DROPPED {0}\n", cmdlist[1].ToUpper());
+                            }
+                            else
+                            {
+                                Console.WriteLine("CAN'T FIND {0}\n", cmdlist[1].ToUpper());
                             }
                         }
-
                     }
-                  
+                    #endregion
+
+
+
                 }
                 #endregion
                 #region MOVEMENT
@@ -431,7 +449,7 @@ namespace FinalProject
                             player.CurrentRoom = myRooms[e.ComputedDest];
                     }
 
-                    else if(e.Conditional > 200 && e.Conditional <= 300)
+                    else if (e.Conditional > 200 && e.Conditional <= 300)
                     {
                         if (player.HasItem(e.Conditional - 200) || player.CurrentRoom.HasItem(e.Conditional - 200))
                         {
@@ -442,7 +460,7 @@ namespace FinalProject
                             Console.WriteLine("You or your room doe not have the necessary items");
                         }
                     }
-                    
+
                     else if (e.Conditional > 100 && e.Conditional <= 200)
                     {
                         int itemNumber = e.Conditional - 100;
@@ -459,18 +477,23 @@ namespace FinalProject
                             Console.WriteLine("YOU DON'T HAVE THE NECESSARY ITEM");
                         }
                     }
-                    else if (e.Conditional > 300 && e.Conditional <= 400 )
+                    else if (e.Conditional > 300 && e.Conditional <= 400)
                     {
-                        if ((e.Conditional % 100) != 0)
+                        if (player.CurrentRoom.HasItem(11))
+                        {
+                            player.CurrentRoom = myRooms[19];
+                            Console.WriteLine(myMessages[20]);
+                        }
+                        else if ((e.Conditional % 100) != 0)
                         {
                             player.CurrentRoom = myRooms[e.ComputedDest];
-                        }                    }
-                    
-                        
+                        }
+                    }
+
                     else
                         throw new NotImplementedException("cant handle conditional movements");
 
-                    break;
+                        break;
                 }
             }
         }
