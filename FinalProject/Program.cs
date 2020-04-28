@@ -428,9 +428,12 @@ namespace FinalProject
                         int itemNumber = e.Conditional - 100;
                         if (player.HasItem(itemNumber))
                         {
-                            player.CurrentRoom = myRooms[e.ComputedDest+1];
+                            player.CurrentRoom = myRooms[e.ComputedDest];
                         }
-                            
+                        else if (!player.HasItem(itemNumber))
+                        {
+                            player.CurrentRoom = myRooms[34];
+                        }
                         else
                         {
                             Console.WriteLine("YOU DON'T HAVE THE NECESSARY ITEM");
