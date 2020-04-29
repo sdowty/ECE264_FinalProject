@@ -57,7 +57,7 @@ namespace FinalProject
                 if (cmdlist.Length == 2)
                     myToken2 = Tokenize(cmdlist[1]);
                 #endregion
-                if (myToken == -1) 
+                if (myToken == -1)  // Not a Vocab Word
                 {
                     Console.WriteLine("I DON'T KNOW THAT WORD.");
                     continue;
@@ -82,6 +82,16 @@ namespace FinalProject
                             Console.WriteLine(i.ShortDescription);
                         }
                         Console.WriteLine('\n');
+                    }
+                    #endregion
+                    #region SAY
+                    else if (myToken == 2003)   // say or talk
+                    {
+                        for (int i = 1; i < cmdlist.Length; i++)
+                        {
+                            Console.Write("{0} ", cmdlist[i].ToUpper());
+                        }
+                        Console.WriteLine("\n");
                     }
                     #endregion
                     #region NON-VOCAB
@@ -148,16 +158,6 @@ namespace FinalProject
                             Console.WriteLine("CAN'T FIND {0}\n", cmdlist[1].ToUpper());
                         }
 
-                    }
-                    #endregion
-                    #region TALK
-                    else if (myToken == 2003)   // say or talk
-                    {
-                        for (int i = 1; i < +cmdlist.Length; i++)
-                        {
-                            Console.Write("{0} ", cmdlist[i].ToUpper());
-                        }
-                        Console.WriteLine("\n");
                     }
                     #endregion
                     #region UNLOCK
@@ -253,7 +253,14 @@ namespace FinalProject
                         int walkToken = Tokenize(cmdlist[1]);
                         if (walkToken < 1000)
                         {
-                            Movement(walkToken);
+                            if (!player.CurrentRoom.HasItem(11))    // cant move by snake
+                            {
+                                Movement(myToken);  // created method so can be call from walk command
+                            }
+                            else
+                            {
+                                Console.WriteLine(myRooms[32]);
+                            }
                         }
                     }
                     #endregion
@@ -447,7 +454,44 @@ namespace FinalProject
                 #region MOVEMENT
                 else if (myToken < 1000)    // movement through map
                 {
-                    Movement(myToken);  // created method so can be call from walk command
+                    if (player.CurrentRoom.HasItem(11)) // cant move by snake
+                    {
+                        Console.WriteLine(myRooms[32]);  // cant move by snake
+                    }
+                    else if (player.CurrentRoom.HasItem(12) && myItems[12].State != 1)  // if bride is not there
+                    {
+                        Console.WriteLine(myMessages[97]);  //cant move across
+                    }                                       //would be able to cross but something wrong with movement table
+                    #region XYZZY
+                    else if (myToken == 62)
+                    {
+                        if (player.CurrentRoom != myRooms[11])
+                        {
+                            player.CurrentRoom = myRooms[11];
+                        }
+                        else if (player.CurrentRoom == myRooms[11])
+                        {
+                            player.CurrentRoom = myRooms[1];
+                        }
+                    }
+                    #endregion
+                    #region Y2
+                    else if (myToken == 55)
+                    {
+                        if (player.CurrentRoom != myRooms[33])
+                        {
+                            player.CurrentRoom = myRooms[33];
+                        }
+                        else if (player.CurrentRoom == myRooms[33])
+                        {
+                            player.CurrentRoom = myRooms[1];
+                        }
+                    }
+                    #endregion
+                    else
+                    {
+                        Movement(myToken);  // created method so can be call from walk command
+                    }
                 }
                 #endregion
             }
@@ -477,7 +521,7 @@ namespace FinalProject
                         }
                         else
                         {
-                            Console.WriteLine("You or your room doe not have the necessary items");
+                            Console.WriteLine("YOU OR YOUR ROOM DO NOT HAVE THE NECESSARY ITEMS.");
                         }
                     }
 
@@ -495,7 +539,7 @@ namespace FinalProject
                         }
                         else
                         {
-                            Console.WriteLine("YOU DON'T HAVE THE NECESSARY ITEM");
+                            Console.WriteLine("YOU DON'T HAVE THE NECESSARY ITEM.");
                         }
                     }
 
@@ -576,6 +620,7 @@ namespace FinalProject
             }
         }
         */
+
         #region GET SECTIONS
         static void GetSection1(StreamReader fs)
         {
@@ -771,7 +816,6 @@ namespace FinalProject
             }
         }
         static void GetSection9(StreamReader fs)
-
         {
             fs.ReadLine(); //Section 9
             string tmp;
@@ -824,7 +868,7 @@ namespace FinalProject
                 SkipSection(fs);
                 GetSection9(fs);
 
-                Console.WriteLine(fs.ReadLine());
+                //Console.WriteLine(fs.ReadLine());
             }
         }
     }
