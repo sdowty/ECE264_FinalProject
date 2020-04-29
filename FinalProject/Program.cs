@@ -42,6 +42,10 @@ namespace FinalProject
                 {
                     Console.WriteLine(player.CurrentRoom);
                 }
+                else
+                {
+                    Console.WriteLine(myMessages[16]);
+                }
                 #endregion
                 #region INPUT
                 Console.Write(">");
@@ -224,9 +228,21 @@ namespace FinalProject
                     {
                         if (myToken2 == 1005 || myToken2 == 1006)       // can only wave rod in specific room
                         {
-                            if (player.HasItem(5) || player.CurrentRoom.HasItem(5))
+                            if ((player.HasItem(5) || player.CurrentRoom.HasItem(5)) && myItems[12].State == 0)
                             {
-                                Console.WriteLine(myMessages[12]);
+                                myItems[12].State++;
+                            }
+                            else if ((player.HasItem(5) || player.CurrentRoom.HasItem(5)) && myItems[12].State == 1)
+                            {
+                                myItems[12].State++;
+                            }
+                            else if ((player.HasItem(5) || player.CurrentRoom.HasItem(5)) && myItems[12].State == 2)
+                            {
+                                myItems[12].State--;
+                            }
+                            else if((!player.HasItem(5) || !player.CurrentRoom.HasItem(5)) && myItems[12].State == 0)
+                            {
+                                Console.WriteLine(myMessages[76]);
                             }
                         }
                     }
@@ -419,9 +435,13 @@ namespace FinalProject
                         }
                     }
                     #endregion
+                    #region CURSE WORDS
 
-
-
+                    else if (myToken == 2032)
+                    {
+                        Console.WriteLine(myMessages[79]);
+                    }
+                    #endregion
                 }
                 #endregion
                 #region MOVEMENT
@@ -469,14 +489,16 @@ namespace FinalProject
                             player.CurrentRoom = myRooms[e.ComputedDest];
                         }
                         else if (!player.HasItem(itemNumber))
+
                         {
-                            player.CurrentRoom = myRooms[34];
+                            player.CurrentRoom = myRooms[34];   //move to next room if you dont have gold
                         }
                         else
                         {
                             Console.WriteLine("YOU DON'T HAVE THE NECESSARY ITEM");
                         }
                     }
+
                     else if (e.Conditional > 300 && e.Conditional <= 400)
                     {
                         if (player.CurrentRoom.HasItem(11))

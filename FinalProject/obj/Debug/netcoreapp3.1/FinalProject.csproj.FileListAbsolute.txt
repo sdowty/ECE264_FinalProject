@@ -50,3 +50,14 @@ C:\Users\antZl\Downloads\ECE\ECE 264\Final\ECE264_FinalProject\FinalProject\bin\
 C:\Users\antZl\Downloads\ECE\ECE 264\Final\ECE264_FinalProject\FinalProject\bin\Debug\netcoreapp3.1\FinalProject.dll
 C:\Users\antZl\Downloads\ECE\ECE 264\Final\ECE264_FinalProject\FinalProject\bin\Debug\netcoreapp3.1\FinalProject.pdb
 C:\Users\antZl\Downloads\ECE\ECE 264\Final\ECE264_FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.genruntimeconfig.cache
+C:\Users\Nathan Boardman\Desktop\ECE264_FinalProject\FinalProject\bin\Debug\netcoreapp3.1\FinalProject.exe
+C:\Users\Nathan Boardman\Desktop\ECE264_FinalProject\FinalProject\bin\Debug\netcoreapp3.1\FinalProject.deps.json
+C:\Users\Nathan Boardman\Desktop\ECE264_FinalProject\FinalProject\bin\Debug\netcoreapp3.1\FinalProject.runtimeconfig.json
+C:\Users\Nathan Boardman\Desktop\ECE264_FinalProject\FinalProject\bin\Debug\netcoreapp3.1\FinalProject.runtimeconfig.dev.json
+C:\Users\Nathan Boardman\Desktop\ECE264_FinalProject\FinalProject\bin\Debug\netcoreapp3.1\FinalProject.dll
+C:\Users\Nathan Boardman\Desktop\ECE264_FinalProject\FinalProject\bin\Debug\netcoreapp3.1\FinalProject.pdb
+C:\Users\Nathan Boardman\Desktop\ECE264_FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.csprojAssemblyReference.cache
+C:\Users\Nathan Boardman\Desktop\ECE264_FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.AssemblyInfoInputs.cache
+C:\Users\Nathan Boardman\Desktop\ECE264_FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.AssemblyInfo.cs
+C:\Users\Nathan Boardman\Desktop\ECE264_FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.dll
+C:\Users\Nathan Boardman\Desktop\ECE264_FinalProject\FinalProject\obj\Debug\netcoreapp3.1\FinalProject.pdb
